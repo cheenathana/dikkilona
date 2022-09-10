@@ -3,6 +3,9 @@
 CC = gcc
 RM = rm
 
+
+all: main
+
 # Linking all objectfiles to executable
 main: build/main.o build/setup_teardown.o
 	$(CC) $^ -o $@ -lSDL2
@@ -14,3 +17,8 @@ build/main.o: main.c libs/include/dikkilona.h
 # Object file for setup_teardown.c
 build/setup_teardown.o: libs/setup_teardown.c libs/include/dikkilona.h
 	$(CC) -c $< -o $@
+
+# Cleaning the build dir
+clean:
+	$(RM) -f build/*.o
+	$(RM) -f main
