@@ -25,7 +25,9 @@ int main(int argc, char* argv[]) {
          0                             // flags
       );
 
-   // Initialie a renderer for the above window
+   // Initialize a renderer for the above window
+   // VSYNC - make the frames per second sync with screen refresh rate 
+   //         so screen tearing will not occur
    render = SDL_CreateRenderer(
          window,
          -1,
@@ -33,6 +35,8 @@ int main(int argc, char* argv[]) {
       );
 
    game_state gstate;
+   gstate.window = window;
+   gstate.render = render;
    gstate.hero.x = 50;
    gstate.hero.y = 50;
 
@@ -47,22 +51,22 @@ int main(int argc, char* argv[]) {
    /* GAME LOOP */
    while (status) {
       // retrieve game status for each loop
-      status = process_key_event(window, &gstate);
+      status = process_key_event(&gstate);
 
       // Apply background color to window
-      setup_window_background(render);
+      setup_window_background(&gstate);
 
       // Render a player
       SDL_Rect pos = {gstate.hero.x, gstate.hero.y, 45, 65};     // (Posx, Posy, dimX, dimY)
       SDL_RenderCopy(render, playertx, NULL, &pos);
 
       // Update the renderer for displaying the present changes
-      SDL_RenderPresent(render);
+      SDL_RenderPresent(gstate.render);
    }
    
    // Cleaning up window and renderer
    SDL_DestroyTexture(playertx);
-   teardown(window, render);
+   teardown(&gstate);
 
 
    return 0;   

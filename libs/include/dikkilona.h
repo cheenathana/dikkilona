@@ -18,7 +18,7 @@ typedef struct {
 } player;
 
 typedef struct {
-   /* Non-Players 01: Antagonist */
+   /* Non-Players: Antagonist */
    float x, y;
 } np_foe;
 
@@ -27,14 +27,21 @@ typedef struct {
    float x, y;
 } grass_land;
 
+
 typedef struct {
+   /* Holds all data about the game's current state */
+   SDL_Window* window;
+   SDL_Renderer* render;
+
    player hero;
+
+   grass_land land;
 } game_state;
 
 
 /*** setup_teardown.c ***/
-void teardown(SDL_Window*, SDL_Renderer*);
-void setup_window_background(SDL_Renderer*);
+void setup_window_background(game_state*);
+void teardown(game_state*);
 
 /*** event_handler.c ***/
-int process_key_event(SDL_Window*, game_state*);
+int process_key_event(game_state*);

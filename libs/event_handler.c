@@ -3,12 +3,13 @@
 #include "include/dikkilona.h"
 
 
-int process_key_event(SDL_Window *window, game_state *gstate) {
+int process_key_event(game_state *gstate) {
   /* To process any keyboard keys are pressed.
    * 
    * Expected events,
    * 1. Click x button in window
    * 2. Pressing ESC key
+   * 3. Navigation keys(up, down, right, left)
    */
    SDL_Event key_event;
 
@@ -16,9 +17,9 @@ int process_key_event(SDL_Window *window, game_state *gstate) {
       switch (key_event.type) {
          case SDL_WINDOWEVENT_CLOSE:
             // 1. CHECK FOR X CLOSE BUTTON CLICKED
-            if (window) {
-               SDL_DestroyWindow(window);
-               window = NULL;
+            if (gstate->window) {
+               SDL_DestroyWindow(gstate->window);
+               gstate->window = NULL;
                return ABORT;
             }
             break;
