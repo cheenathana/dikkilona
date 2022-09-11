@@ -40,12 +40,8 @@ int main(int argc, char* argv[]) {
    gstate.hero.x = 50;
    gstate.hero.y = 50;
 
-   // Loading a image
-   SDL_Surface* surface = IMG_Load("assests/img/player/idle1.png");
-
-   // creating a texture of image from surface
-   SDL_Texture* playertx = SDL_CreateTextureFromSurface(render, surface);
-   SDL_FreeSurface(surface);
+   char* base_path = SDL_GetBasePath();
+   printf("BASE PATH: %s\n", base_path);
 
 
    /* GAME LOOP */
@@ -56,16 +52,18 @@ int main(int argc, char* argv[]) {
       // Apply background color to window
       setup_window_background(&gstate);
 
+      load_texture(&gstate);
+
       // Render a player
       SDL_Rect pos = {gstate.hero.x, gstate.hero.y, 45, 65};     // (Posx, Posy, dimX, dimY)
-      SDL_RenderCopy(render, playertx, NULL, &pos);
+      SDL_RenderCopy(render, gstate.ch, NULL, &pos);
 
       // Update the renderer for displaying the present changes
       SDL_RenderPresent(gstate.render);
    }
    
    // Cleaning up window and renderer
-   SDL_DestroyTexture(playertx);
+   SDL_DestroyTexture(gstate.ch);
    teardown(&gstate);
 
 

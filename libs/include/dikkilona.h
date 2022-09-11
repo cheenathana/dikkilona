@@ -32,6 +32,7 @@ typedef struct {
    /* Holds all data about the game's current state */
    SDL_Window* window;
    SDL_Renderer* render;
+   SDL_Texture* ch;
 
    player hero;
 
@@ -41,6 +42,7 @@ typedef struct {
 
 /*** setup_teardown.c ***/
 void setup_window_background(game_state*);
+void load_texture(game_state*);
 void teardown(game_state*);
 
 /*** event_handler.c ***/
