@@ -3,7 +3,7 @@
 #include "include/dikkilona.h"
 
 
-int process_key_event(SDL_Window *window) {
+int process_key_event(SDL_Window *window, game_state *gstate) {
   /* To process any keyboard keys are pressed.
    * 
    * Expected events,
@@ -30,7 +30,22 @@ int process_key_event(SDL_Window *window) {
                case SDLK_ESCAPE:
                   return ABORT;
 
-               // 2.2 xxxxxxx
+               // 2.2 Navigation keys
+               case SDLK_RIGHT:
+                  gstate->hero.x += 10;
+                  break;
+
+               case SDLK_LEFT:
+                  gstate->hero.x -= 10;
+                  break;
+
+               case SDLK_UP:
+                  gstate->hero.y -= 10;
+                  break;
+
+               case SDLK_DOWN:
+                  gstate->hero.y += 5;
+                  break;
             }
             break;
 

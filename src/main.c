@@ -10,9 +10,6 @@
 int main(int argc, char* argv[]) {
     bool status = KEEP_GOING;
 
-    player diki;
-    diki.life = 100;
-
    SDL_Window *window;
    SDL_Renderer *render;
 
@@ -35,6 +32,10 @@ int main(int argc, char* argv[]) {
          SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC
       );
 
+   game_state gstate;
+   gstate.hero.x = 50;
+   gstate.hero.y = 50;
+
    // Loading a image
    SDL_Surface* surface = IMG_Load("assests/img/player/idle1.png");
 
@@ -46,13 +47,13 @@ int main(int argc, char* argv[]) {
    /* GAME LOOP */
    while (status) {
       // retrieve game status for each loop
-      status = process_key_event(window);
+      status = process_key_event(window, &gstate);
 
       // Apply background color to window
       setup_window_background(render);
 
       // Render a player
-      SDL_Rect pos = {50, 50, 45, 65};     // (Posx, Posy, dimX, dimY)
+      SDL_Rect pos = {gstate.hero.x, gstate.hero.y, 45, 65};     // (Posx, Posy, dimX, dimY)
       SDL_RenderCopy(render, playertx, NULL, &pos);
 
       // Update the renderer for displaying the present changes
