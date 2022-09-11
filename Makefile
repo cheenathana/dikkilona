@@ -8,7 +8,7 @@ all: bin/dikkilona
 
 # Linking all objectfiles to executable
 bin/dikkilona: build/main.o build/setup_teardown.o build/event_handler.o
-	$(CC) $^ -o $@ -lSDL2
+	$(CC) $^ -o $@ -lSDL2 -lSDL2_image
 
 # Object file for main.c
 build/main.o: src/main.c libs/include/dikkilona.h

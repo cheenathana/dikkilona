@@ -35,6 +35,13 @@ int main(int argc, char* argv[]) {
          SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC
       );
 
+   // Loading a image
+   SDL_Surface* surface = IMG_Load("assests/img/player/idle1.png");
+
+   // creating a texture of image from surface
+   SDL_Texture* playertx = SDL_CreateTextureFromSurface(render, surface);
+   SDL_FreeSurface(surface);
+
 
    /* GAME LOOP */
    while (status) {
@@ -44,11 +51,16 @@ int main(int argc, char* argv[]) {
       // Apply background color to window
       setup_window_background(render);
 
+      // Render a player
+      SDL_Rect pos = {50, 50, 45, 65};     // (Posx, Posy, dimX, dimY)
+      SDL_RenderCopy(render, playertx, NULL, &pos);
+
       // Update the renderer for displaying the present changes
       SDL_RenderPresent(render);
    }
    
    // Cleaning up window and renderer
+   SDL_DestroyTexture(playertx);
    teardown(window, render);
 
 
