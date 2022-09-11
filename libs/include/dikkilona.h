@@ -41,6 +41,7 @@ typedef struct {
 
 
 /*** setup_teardown.c ***/
+void initialize_window_renderer(game_state*);
 void setup_window_background(game_state*);
 void load_texture(game_state*);
 void teardown(game_state*);
