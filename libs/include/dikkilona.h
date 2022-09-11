@@ -9,6 +9,12 @@
 extern const bool ABORT; 
 extern const bool KEEP_GOING;
 
+typedef struct {
+   float x, y;
+   short life;
+   char *name;
+} player;
+
 
 /*** setup_teardown.c ***/
 void teardown(SDL_Window*, SDL_Renderer*);

@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdbool.h>
 
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_image.h"
@@ -7,7 +8,10 @@
 
 
 int main(int argc, char* argv[]) {
-   int status = KEEP_GOING;
+    bool status = KEEP_GOING;
+
+    player diki;
+    diki.life = 100;
 
    SDL_Window *window;
    SDL_Renderer *render;
