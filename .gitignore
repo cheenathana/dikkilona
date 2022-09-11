@@ -1,0 +1,3 @@
+# ignoring compilation and executable files
+build/
+bin/
