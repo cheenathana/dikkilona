@@ -25,25 +25,31 @@ typedef struct {
 typedef struct {
    /* Structures: land */
    float x, y;
-} grass_land;
+} land;
 
 
 typedef struct {
    /* Holds all data about the game's current state */
    SDL_Window* window;
    SDL_Renderer* render;
-   SDL_Texture* ch;
 
+   // Image Textures
+   SDL_Texture* sprite_hero[2];
+   SDL_Texture* grassyland;
+
+   // Main player stats
    player hero;
 
-   grass_land land;
+   // Non-Player stats
+
+   // Structures stats
+   land grassy_land[100];
 } game_state;
 
 
 /*** setup_teardown.c ***/
 void initialize_window_renderer(game_state*);
 void setup_window_background(game_state*);
-void load_texture(game_state*);
 void teardown(game_state*);
 
 /*** event_handler.c ***/
