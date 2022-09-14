@@ -17,27 +17,10 @@ int main(int argc, char* argv[]) {
 
    gstate.hero.x = 50;
    gstate.hero.y = 50;
-   gstate.grassy_land[0].x = 100;
-   gstate.grassy_land[0].y = 100;
 
    initialize_window_renderer(&gstate);
 
-   SDL_Surface* surface1 = IMG_Load("assests/img/player/idle1.png");
-   SDL_Surface* surface2 = IMG_Load("assests/img/structure/land_long.png");
-
-   if (surface1 == NULL || surface2 == NULL) {
-      printf("FATAL: IMAGE RESOURCE NOT LOADED\n");
-      SDL_Quit();
-      exit(1);
-   }
-
-   // Generating resource texture from the surface
-   gstate.sprite_hero[0] = SDL_CreateTextureFromSurface(gstate.render, surface1);
-   gstate.grassyland = SDL_CreateTextureFromSurface(gstate.render, surface2);
-   SDL_FreeSurface(surface1);
-   SDL_FreeSurface(surface2);
-
-
+   load_all_textures(&gstate);
 
    /* GAME LOOP */
    while (status) {
@@ -45,21 +28,22 @@ int main(int argc, char* argv[]) {
       status = process_key_event(&gstate);
 
       // Apply background color to window
-      setup_window_background(&gstate);
+      render_window_background_color(&gstate);
 
       // Render a player
       SDL_Rect pos = {gstate.hero.x, gstate.hero.y, 45, 65};     // (Posx, Posy, dimX, dimY)
-      SDL_RenderCopy(gstate.render, gstate.sprite_hero[0], NULL, &pos);
+      SDL_RenderCopy(gstate.render, gstate.hero_texture[0], NULL, &pos);
 
-      SDL_Rect gpos = {gstate.grassy_land[0].x, gstate.grassy_land[0].y, 400, 80}; // (Posx, Posy, dimX, dimY)
-      SDL_RenderCopy(gstate.render, gstate.grassyland, NULL, &gpos);
+      // Render the grass land for the player to walk
+      render_land(&gstate);
 
       // Update the renderer for displaying the present changes
       SDL_RenderPresent(gstate.render);
    }
    
    // Cleaning up window and renderer
-   SDL_DestroyTexture(gstate.sprite_hero[0]);
+   SDL_DestroyTexture(gstate.hero_texture[0]);
+   SDL_DestroyTexture(gstate.grassland_texture);
    teardown(&gstate);
 
 
