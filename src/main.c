@@ -24,28 +24,24 @@ int main(int argc, char* argv[]) {
 
    /* GAME LOOP */
    while (status) {
-      // retrieve game status for each loop
+      // retrieve game status & key events for each loop
       status = process_key_event(&gstate);
 
       // Apply background color to window
       render_window_background_color(&gstate);
 
-      // Render a player
-      SDL_Rect pos = {gstate.hero.x, gstate.hero.y, 45, 65};     // (Posx, Posy, dimX, dimY)
-      SDL_RenderCopy(gstate.render, gstate.hero_texture[0], NULL, &pos);
-
       // Render the grass land for the player to walk
       render_land(&gstate);
+
+      // Render the player
+      render_player(&gstate);
 
       // Update the renderer for displaying the present changes
       SDL_RenderPresent(gstate.render);
    }
    
-   // Cleaning up window and renderer
-   SDL_DestroyTexture(gstate.hero_texture[0]);
-   SDL_DestroyTexture(gstate.grassland_texture);
+   // Cleaning up textures, window & renderer
    teardown(&gstate);
-
 
    return 0;   
 }

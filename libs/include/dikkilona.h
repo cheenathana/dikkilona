@@ -4,8 +4,13 @@
 #include "SDL2/SDL_image.h"
 
 #define WINDOW_TITLE "Dikkilona"
-#define WINDOW_WIDTH 640
-#define WINDOW_HEIGHT 480
+#define WWINDOW 1000
+#define HWINDOW 480
+
+#define WHERO 45
+#define HHERO 65
+#define WGRASSLAND 300
+#define HGRASSLAND 80
 
 extern const short BACKGROUND[4];    // RBG-Alpha color for background
 

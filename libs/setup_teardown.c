@@ -17,8 +17,8 @@ void initialize_window_renderer(game_state* gstate) {
          WINDOW_TITLE,
          SDL_WINDOWPOS_UNDEFINED,      // initial x position
          SDL_WINDOWPOS_UNDEFINED,      // initial y position
-         WINDOW_WIDTH,                 // window width in pixels
-         WINDOW_HEIGHT,                // window height in pixels
+         WWINDOW,                      // window width in pixels
+         HWINDOW,                     // window height in pixels
          0                             // flags
       );
 
@@ -70,11 +70,11 @@ void render_window_background_color(game_state* gstate) {
 
 void render_land(game_state* gstate) {
    for (int i = 0; i < 50; i++) {
-      gstate->grassland[i].w = 400;
-      gstate->grassland[i].h = 80;
+      gstate->grassland[i].w = WGRASSLAND;
+      gstate->grassland[i].h = HGRASSLAND;
 
-      gstate->grassland[i].x = i * 400;
-      gstate->grassland[i].y = WINDOW_HEIGHT - 70;
+      gstate->grassland[i].x = (i * WGRASSLAND);
+      gstate->grassland[i].y = HWINDOW - 65;
 
       SDL_Rect gpos = {gstate->grassland[i].x, 
                        gstate->grassland[i].y, 
@@ -86,11 +86,15 @@ void render_land(game_state* gstate) {
 
 void render_player(game_state* gstate) {
    // poxitionX, positionY, dimensionW, dimensionH
-   SDL_Rect pos = {gstate->hero.x, gstate->hero.y, 45, 65};
+   SDL_Rect pos = {gstate->hero.x, gstate->hero.y, WHERO, HHERO};
    SDL_RenderCopyEx(gstate->render, gstate->hero_texture[0], NULL, &pos, 0, NULL, 0);
 }
 
 void teardown(game_state* gstate) {
+   // Destroying textures
+   SDL_DestroyTexture(gstate->hero_texture[0]);
+   SDL_DestroyTexture(gstate->grassland_texture);
+   
    SDL_DestroyWindow(gstate->window);
    SDL_DestroyRenderer(gstate->render);
 
