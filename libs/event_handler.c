@@ -45,7 +45,7 @@ int process_key_event(game_state *gstate) {
                   break;
 
                case SDLK_DOWN:
-                  gstate->hero.y += 5;
+                  gstate->hero.y += 10;
                   break;
             }
             break;

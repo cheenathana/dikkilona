@@ -9,41 +9,41 @@
 
 #define WHERO 45
 #define HHERO 65
-#define WGRASSLAND 300
-#define HGRASSLAND 80
+#define WLAWN 415
+#define HLAWN 75
 
 extern const short BACKGROUND[4];    // RBG-Alpha color for background
-
 extern const bool ABORT; 
 extern const bool KEEP_GOING;
 
+
+/* Player: Hero */
 typedef struct {
-   /* Player: Hero */
    float x, y, dy;
    float w, h;
    short life;
    char *name;
 } player;
 
+/* Non-Players: Antagonist */
 typedef struct {
-   /* Non-Players: Antagonist */
    float x, y;
 } nplayer;
 
+/* Structures: landscape */
 typedef struct {
-   /* Structures: land */
    float x, y, w, h;
-} land;
+} landscape;
 
 
+/* Holds all data about the game's current state */
 typedef struct {
-   /* Holds all data about the game's current state */
    SDL_Window* window;
    SDL_Renderer* render;
 
    // Image Textures
    SDL_Texture* hero_texture[2];
-   SDL_Texture* grassland_texture;
+   SDL_Texture* lawn_texture;
 
    // Main player stats
    player hero;
@@ -51,15 +51,16 @@ typedef struct {
    // Non-Player stats
 
    // Structures stats
-   land grassland[100];
+   landscape lawn[100];
 } game_state;
+
 
 
 /*** setup_teardown.c ***/
 void initialize_window_renderer(game_state*);
 void render_window_background_color(game_state*);
 void load_all_textures(game_state*);
-void render_land(game_state*);
+void render_landscapes(game_state*);
 void render_player(game_state*);
 void teardown(game_state*);
 
@@ -67,4 +68,5 @@ void teardown(game_state*);
 int process_key_event(game_state*);
 
 /*** game_physics.c ***/
-void collision_detect(game_state*);
+void detect_collision(game_state*);
+void put_in_gravity(game_state*); 

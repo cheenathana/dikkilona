@@ -32,14 +32,14 @@ int main(int argc, char* argv[]) {
       // Apply background color to window
       render_window_background_color(&gstate);
 
-      // Render the grass land for the player to walk
-      render_land(&gstate);
+      // Render the landscapes for the player to walk
+      render_landscapes(&gstate);
 
       // Render the player
       render_player(&gstate);
 
       // Check for the player collision with the brick
-      collision_detect(&gstate);
+      detect_collision(&gstate);
 
       // Update the renderer for displaying the present changes
       SDL_RenderPresent(gstate.render);

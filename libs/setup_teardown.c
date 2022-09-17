@@ -39,7 +39,7 @@ void load_all_textures(game_state* gstate) {
    // NON-PLAYER IMAGE
 
    // STRUCTURE IMAGE
-   SDL_Surface* surface2 = IMG_Load("assests/img/structure/land_long.png");
+   SDL_Surface* surface2 = IMG_Load("assests/img/structure/lawn.png");
 
    // Validating if textures are loaded successfully
    if (surface1 == NULL || surface2 == NULL) {
@@ -50,7 +50,7 @@ void load_all_textures(game_state* gstate) {
 
    // Generating resource texture from the texture
    gstate->hero_texture[0] = SDL_CreateTextureFromSurface(gstate->render, surface1);
-   gstate->grassland_texture = SDL_CreateTextureFromSurface(gstate->render, surface2);
+   gstate->lawn_texture = SDL_CreateTextureFromSurface(gstate->render, surface2);
 
    // Clearing up surfaces
    SDL_FreeSurface(surface1);
@@ -68,33 +68,17 @@ void render_window_background_color(game_state* gstate) {
    SDL_RenderClear(gstate->render);
 }
 
-void render_land(game_state* gstate) {
-   for (int i = 0; i < 50; i++) {
-      if (i == 2) {
-         gstate->grassland[i].w = WGRASSLAND;
-         gstate->grassland[i].h = HGRASSLAND;
+void render_landscapes(game_state* gstate) {
+   for (int i = 0; i < 100; i++) {
+      gstate->lawn[i].w = WLAWN;
+      gstate->lawn[i].h = HLAWN;
+      gstate->lawn[i].x = (i * WLAWN);
+      gstate->lawn[i].y = HWINDOW - HLAWN;
 
-         gstate->grassland[i].x = (i * WGRASSLAND);
-         gstate->grassland[i].y = 200;      // 480 -65 pix to place the land
-         SDL_Rect gpos = {gstate->grassland[i].x, 
-                          gstate->grassland[i].y, 
-                          gstate->grassland[i].w,
-                          gstate->grassland[i].h}  ; // (Posx, Posy, dimX, dimY)
-         SDL_RenderCopy(gstate->render, gstate->grassland_texture, NULL, &gpos);
-         continue;
-      }
-
-      gstate->grassland[i].w = WGRASSLAND;
-      gstate->grassland[i].h = HGRASSLAND;
-
-      gstate->grassland[i].x = (i * WGRASSLAND);
-      gstate->grassland[i].y = HWINDOW - 65;      // 480 -65 pix to place the land
-
-      SDL_Rect gpos = {gstate->grassland[i].x, 
-                       gstate->grassland[i].y, 
-                       gstate->grassland[i].w,
-                       gstate->grassland[i].h}  ; // (Posx, Posy, dimX, dimY)
-      SDL_RenderCopy(gstate->render, gstate->grassland_texture, NULL, &gpos);
+      // (X-pos, Y-pos, Width, Height)
+      SDL_Rect gpos = {gstate->lawn[i].x, gstate->lawn[i].y, 
+                       gstate->lawn[i].w, gstate->lawn[i].h};
+      SDL_RenderCopy(gstate->render, gstate->lawn_texture, NULL, &gpos);
    }
 }
 
@@ -107,7 +91,7 @@ void render_player(game_state* gstate) {
 void teardown(game_state* gstate) {
    // Destroying textures
    SDL_DestroyTexture(gstate->hero_texture[0]);
-   SDL_DestroyTexture(gstate->grassland_texture);
+   SDL_DestroyTexture(gstate->lawn_texture);
    
    SDL_DestroyWindow(gstate->window);
    SDL_DestroyRenderer(gstate->render);
