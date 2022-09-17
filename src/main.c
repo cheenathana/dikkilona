@@ -17,6 +17,8 @@ int main(int argc, char* argv[]) {
 
    gstate.hero.x = 50;
    gstate.hero.y = 50;
+   gstate.hero.w = WHERO;
+   gstate.hero.h = HHERO;
 
    initialize_window_renderer(&gstate);
 
@@ -35,6 +37,9 @@ int main(int argc, char* argv[]) {
 
       // Render the player
       render_player(&gstate);
+
+      // Check for the player collision with the brick
+      collision_detect(&gstate);
 
       // Update the renderer for displaying the present changes
       SDL_RenderPresent(gstate.render);

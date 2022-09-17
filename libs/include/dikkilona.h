@@ -19,7 +19,8 @@ extern const bool KEEP_GOING;
 
 typedef struct {
    /* Player: Hero */
-   float x, y;
+   float x, y, dy;
+   float w, h;
    short life;
    char *name;
 } player;
@@ -64,3 +65,6 @@ void teardown(game_state*);
 
 /*** event_handler.c ***/
 int process_key_event(game_state*);
+
+/*** game_physics.c ***/
+void collision_detect(game_state*);

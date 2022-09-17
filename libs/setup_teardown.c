@@ -70,11 +70,25 @@ void render_window_background_color(game_state* gstate) {
 
 void render_land(game_state* gstate) {
    for (int i = 0; i < 50; i++) {
+      if (i == 2) {
+         gstate->grassland[i].w = WGRASSLAND;
+         gstate->grassland[i].h = HGRASSLAND;
+
+         gstate->grassland[i].x = (i * WGRASSLAND);
+         gstate->grassland[i].y = 200;      // 480 -65 pix to place the land
+         SDL_Rect gpos = {gstate->grassland[i].x, 
+                          gstate->grassland[i].y, 
+                          gstate->grassland[i].w,
+                          gstate->grassland[i].h}  ; // (Posx, Posy, dimX, dimY)
+         SDL_RenderCopy(gstate->render, gstate->grassland_texture, NULL, &gpos);
+         continue;
+      }
+
       gstate->grassland[i].w = WGRASSLAND;
       gstate->grassland[i].h = HGRASSLAND;
 
       gstate->grassland[i].x = (i * WGRASSLAND);
-      gstate->grassland[i].y = HWINDOW - 65;
+      gstate->grassland[i].y = HWINDOW - 65;      // 480 -65 pix to place the land
 
       SDL_Rect gpos = {gstate->grassland[i].x, 
                        gstate->grassland[i].y, 
